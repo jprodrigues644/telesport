@@ -7,7 +7,7 @@ Il est conçu pour qu'un nouveau développeur puisse rapidement comprendre la st
 
 ## **1. Arborescence des Dossiers**
 
-![Arborescence du projet](\telesport\src\assets\images\diag.png)
+![Arborescence Projet TéléSport](src/assets/images/diag.png)
 
 ## 2. Composants et leurs Rôles
 
