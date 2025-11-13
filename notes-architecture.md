@@ -56,7 +56,7 @@
 ### **2.5. Facilitation pour l'Intégration d'un Backend**
 - **Services comme points de contact** : `DataService` sera le seul point à modifier pour connecter une API réelle.
 - **Interfaces TypeScript** : Les modèles (`Olympic`, `Participation`) facilitent l'intégration des données de l'API.
-- **Observables** : La gestion réactive des données est déjà en place pour une intégration fluide.
+- **Observables** : La gestion réactive des données est sera en place pour une intégration fluide.
 
 ---
 
