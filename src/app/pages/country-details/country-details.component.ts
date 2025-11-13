@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { Olympic } from 'src/app/models/olympic';
 import { Participation } from 'src/app/models/participation';
@@ -19,6 +19,7 @@ export class CountryDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private dataService: DataService
   ) {}
 
@@ -27,24 +28,13 @@ export class CountryDetailsComponent implements OnInit {
     this.country$ = this.dataService.getDataOlympicByCountry(countryName);
     this.countryIndex$ = this.dataService.getCountryIndex(countryName);
 
-    this.totalParticipations$ = this.country$.pipe(
-      map((country) => country?.participations.length || 0)
-    );
+  this.totalParticipations$ = this.dataService.getTotalParticipations(this.country$);
+    this.totalMedals$ = this.dataService.getTotalMedals(this.country$);
+    this.totalAthletes$ = this.dataService.getTotalAthletes(this.country$);
+    this.countryIndex$ = this.dataService.getCountryIndex(countryName);
+  }
 
-    this.totalMedals$ = this.country$.pipe(
-      map((country) =>
-        country
-          ? country.participations.reduce((sum, p) => sum + p.medalsCount, 0)
-          : 0
-      )
-    );
-
-    this.totalAthletes$ = this.country$.pipe(
-      map((country) =>
-        country
-          ? country.participations.reduce((sum, p) => sum + p.athleteCount, 0)
-          : 0
-      )
-    );
+   goBackHome(): void {
+    this.router.navigate(['/']);
   }
 }

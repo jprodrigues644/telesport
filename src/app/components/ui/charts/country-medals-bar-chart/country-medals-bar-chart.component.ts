@@ -30,6 +30,7 @@ export class CountryMedalsBarChartComponent implements OnInit, OnChanges {
     return this.countryColors[this.countryIndex % this.countryColors.length];
   }
 
+    // To change
   private getBorderColor(): string {
     const color = this.getBackgroundColor();
     const r = parseInt(color.slice(1, 3), 16);
@@ -43,7 +44,7 @@ export class CountryMedalsBarChartComponent implements OnInit, OnChanges {
     let canvas = document.getElementById(canvasId) as HTMLCanvasElement;
 
     if (!canvas) {
-      // Si le canvas n’existe pas encore, on le crée
+      //If its not found, create it
       const container = document.querySelector('.chart-container');
       if (!container) return;
       container.innerHTML = `<canvas id="${canvasId}"></canvas>`;

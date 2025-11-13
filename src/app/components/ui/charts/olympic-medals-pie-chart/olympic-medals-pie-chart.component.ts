@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import Chart from 'chart.js/auto';
 import { Olympic } from 'src/app/models/olympic';
@@ -12,15 +12,23 @@ import { Olympic } from 'src/app/models/olympic';
 })
 export class OlympicMedalsPieChartComponent implements OnInit {
   @Input() data: Olympic[] = [];
+  
+  
   private chart: Chart | undefined;
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.BuildPieChart();
+    this.buildPieChart();
   }
 
-  BuildPieChart() {
+   ngOnChanges(changes: SimpleChanges): void {
+    if ((changes['labels'] || changes['data']) && !(changes['labels']?.firstChange && changes['data']?.firstChange)) {
+      this.buildPieChart();
+    }
+  }
+
+  buildPieChart() {
     const canvas = document.getElementById('olympicMedalsPieChart') as HTMLCanvasElement;
     const ctx = canvas.getContext('2d');
 
@@ -39,7 +47,7 @@ export class OlympicMedalsPieChartComponent implements OnInit {
     this.chart = new Chart(ctx, {
       type: 'pie',
       data: {
-        labels,
+        labels: labels,
         datasets: [{
           label: 'Total Medals',
           data: medals,

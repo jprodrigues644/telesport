@@ -13,7 +13,9 @@ import { DataService } from 'src/app/services/data.service';
 
 })
 export class HomeComponent implements OnInit {
-    olympics$!: Observable<Olympic[]>;
+  olympics$!: Observable<Olympic[]>;
+   totalJOs$!: Observable<number>;
+  medalsByCountry$!: Observable<{ labels: string[], data: number[] }>;
 
   constructor(private dataService: DataService) {}
 
@@ -41,6 +43,8 @@ export class HomeComponent implements OnInit {
   //   )
   // }
   this.olympics$ = this.dataService.getDataOlympics();
+  this.totalJOs$ = this.dataService.getTotalJOs();
+  this.medalsByCountry$ = this.dataService.getMedalsByCountry();
 }
 
 }
