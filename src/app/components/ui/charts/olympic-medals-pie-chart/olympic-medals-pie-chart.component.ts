@@ -64,7 +64,7 @@ export class OlympicMedalsPieChartComponent implements OnInit {
         },
         onClick: (event, elements) => {
           if (elements.length > 0) {
-            const index = elements[0].index; // index de la part du graphique cliquée
+            const index = elements[0].index; // Get the index of the clicked segment
             const countryName = labels[index];
             this.router.navigate(['/country', countryName]);
           }
