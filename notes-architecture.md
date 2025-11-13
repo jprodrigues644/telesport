@@ -9,7 +9,7 @@
 | Type de Problème          | Description                                                                                     | Exemple (Fichier/Ligne)                     |
 |----------------------------|-------------------------------------------------------------------------------------------------|--------------------------------------------|
 | **Appels HTTP dans les composants** | Les appels API sont effectués directement dans les composants au lieu d'être centralisés dans un service. | `country-details.component.ts` |
-| **Absence de typage strict** | Utilisation de `any` au lieu de types spécifiques.                                              | `home.component.ts` (lignes 10-12)          |
+| **Absence de typage strict** | Utilisation de `any` au lieu de types spécifiques.                                              | `home.component.ts`           |
 | **Code dupliqué**          | La logique de calcul des totaux est dupliquée dans plusieurs composants.                     | `country.component.ts`  |
 | **Fichiers trop volumineux** | Certains fichiers contiennent trop de responsabilités (affichage + logique métier).          | `dashboard.component.ts`                  |
 | **Code obsolète**          | Présence de `console.log` inutiles et de code commenté.                                         | `country.component.ts`  |
