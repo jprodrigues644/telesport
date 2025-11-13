@@ -1,0 +1,17 @@
+<app-header></app-header>
+<div *ngIf="country$ | async as country">
+  <h1>{{ country.country }}</h1>
+
+  <div class="country-info" *ngIf="country.participations as participations">
+    <p>Nombre de participations : {{ participations.length }}</p>
+    <p>Nombre total de médailles : {{ totalMedals$ | async }}</p>
+    <p>Nombre total d'athlètes : {{ totalAthletes$ | async }}</p>
+  </div>
+
+  <div class="chart-container">
+    <app-country-medals-bar-chart
+      [data]="country.participations"
+      [countryIndex]="(countryIndex$ | async) ?? 0">
+    </app-country-medals-bar-chart>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+.wrapper-container {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 50%;
+
+  h2 {
+    text-align: center;
+    color: gray;
+  }
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  margin-top: 20px;
+}
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+@media screen and (max-width: 1000px) {
+  .container {
+    width: 100%;
+  }
+}
