@@ -34,4 +34,39 @@
 | Dossier               | Rôle                                                                                     | Exemple de Contenu                          |
 |-----------------------|------------------------------------------------------------------------------------------|---------------------------------------------|
 | `components/ui/charts/` | Composants réutilisables pour les graphiques.                                            | `OlympicMedalsPieChartComponent`            |
-| `components/layout/`  | Composants de mise en page.
+| `components/layout/`  | Composants de mise en page.                                                              | `HeaderComponent`                           |
+| `models/`             | Interfaces TypeScript pour le typage des données.                                        | `Olympic`, `Participation`                 |
+| `pages/`              | Pages principales de l'application.                                                       | `HomeComponent`, `CountryDetailsComponent` |
+| `services/`           | Services pour les appels API et la logique métier.                                       | `DataService`                              |
+
+### **2.3. Design Patterns à Appliquer**
+
+| Pattern               | Application                                                                               | Avantages                                                                 |
+|------------------------|------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|
+| **Singleton**          | `DataService` est fourni au niveau racine (`providedIn: 'root'`).                      | Une seule instance du service dans toute l'application.                |
+| **Séparation des responsabilités** | Composants pour l'affichage, services pour la logique métier.                          | Code plus maintenable et testable.                                       |
+
+### **2.4. Améliorations à Apporter**
+- **Centralisation des appels API** : Tous les appels HTTP sont déplacés dans `DataService`.
+- **Typage strict** : Utilisation d'interfaces TypeScript pour éviter `any`.
+- **Composants réutilisables** : Les graphiques et le header sont des composants standalone.
+- **Gestion des observables** : Utilisation correcte de `pipe` et `async` pour les données réactives.
+- **Structure claire** : Dossiers organisés par fonctionnalité.
+
+### **2.5. Facilitation pour l'Intégration d'un Backend**
+- **Services comme points de contact** : `DataService` sera le seul point à modifier pour connecter une API réelle.
+- **Interfaces TypeScript** : Les modèles (`Olympic`, `Participation`) facilitent l'intégration des données de l'API.
+- **Observables** : La gestion réactive des données est déjà en place pour une intégration fluide.
+
+---
+
+## **3. Étapes de Refactorisation**
+
+### **3.1. Séparation des Composants**
+- Création du composant `country-medals-bar-chart` pour afficher les médailles par pays.
+- Création du composant `medals-pie-chart` pour l'affichage total.
+- Cela permet de rendre le composant `country` plus léger et mieux structuré.
+
+### **3.2. Suppression du Code Obsolète**
+- Supprimer les `console.log` inutiles.
+- Supprimer le code commenté obsolète.
