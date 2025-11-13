@@ -20,7 +20,7 @@ export class CountryMedalsBarChartComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // 🔁 Quand l'index du pays change, on reconstruit le graphique
+    // Rebuild chart if data or countryIndex changes
     if (changes['countryIndex'] && !changes['countryIndex'].firstChange) {
       this.BuildBarChart();
     }
