@@ -17,6 +17,7 @@
 | **Mauvaise arborescence des fichiers** | La structure actuelle est peu compréhensible et difficilement maintenable.           | `components/data.service.ts`              |
 
 ### **1.2. Risques de Dette Technique**
+
 - **Maintenabilité** : Difficile de maintenir le code à cause de la duplication et du manque de structure.
 - **Évolutivité** : Ajouter de nouvelles fonctionnalités sera complexe sans une architecture claire.
 - **Tests** : Le code n'est pas facilement testable à cause du mélange des responsabilités.
@@ -47,6 +48,7 @@
 | **Séparation des responsabilités** | Composants pour l'affichage, services pour la logique métier.                          | Code plus maintenable et testable.                                       |
 
 ### **2.4. Améliorations à Apporter**
+
 - **Centralisation des appels API** : Tous les appels HTTP sont déplacés dans `DataService`.
 - **Typage strict** : Utilisation d'interfaces TypeScript pour éviter `any`.
 - **Composants réutilisables** : Les graphiques et le header sont des composants standalone.
@@ -54,6 +56,7 @@
 - **Structure claire** : Dossiers organisés par fonctionnalité.
 
 ### **2.5. Facilitation pour l'Intégration d'un Backend**
+
 - **Services comme points de contact** : `DataService` sera le seul point à modifier pour connecter une API réelle.
 - **Interfaces TypeScript** : Les modèles (`Olympic`, `Participation`) facilitent l'intégration des données de l'API.
 - **Observables** : La gestion réactive des données est sera en place pour une intégration fluide.
@@ -63,10 +66,12 @@
 ## **3. Étapes de Refactorisation**
 
 ### **3.1. Séparation des Composants**
+
 - Création du composant `country-medals-bar-chart` pour afficher les médailles par pays.
 - Création du composant `medals-pie-chart` pour l'affichage total.
 - Cela permet de rendre le composant `country` plus léger et mieux structuré.
 
 ### **3.2. Suppression du Code Obsolète**
+
 - Supprimer les `console.log` inutiles.
 - Supprimer le code commenté obsolète.
