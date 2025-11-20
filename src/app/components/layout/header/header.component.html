@@ -1,1 +1,16 @@
-<h2> Header component Start </h2>
+<header class="header" [class]="size">
+  <div class="left-logos">
+    <img [src]="telesportLogoPath" alt="Télésport" class="telesport-logo">
+  </div>
+
+  <!-- Affiche le titre uniquement si ce n'est pas un petit écran portrait -->
+  <div class="title-container" *ngIf="!(isSmall && isPortrait)">
+    <h1 class="title">{{ title }}</h1>
+  </div>
+
+  <div class="right-logo">
+    <img [src]="olympicRingsPath" alt="Olympic Rings" class="olympic-rings">
+  </div>
+</header>
+
+<div class="rainbow"></div>

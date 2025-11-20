@@ -15,15 +15,15 @@ import { CountryMedalsBarChartComponent } from './components/ui/charts/country-m
     AppComponent,
     HomeComponent,
     NotFoundComponent,
-    CountryDetailsComponent, // Assure-toi que ce composant n'est pas standalone
+    CountryDetailsComponent, 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    HeaderComponent, // Importé ici car c'est un composant standalone
-    OlympicMedalsPieChartComponent, // Importé ici car c'est un composant standalone
-    CountryMedalsBarChartComponent, // Importé ici car c'est un composant standalone
+    HeaderComponent, 
+    OlympicMedalsPieChartComponent, 
+    CountryMedalsBarChartComponent, 
   ],
   providers: [],
   bootstrap: [AppComponent],

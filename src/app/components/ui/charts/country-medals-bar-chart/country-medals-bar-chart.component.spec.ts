@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CountryMedalsAreaChartComponent } from './country-medals-bar-chart.component';
+import { CountryMedalsBarChartComponent } from './country-medals-bar-chart.component';
 
 describe('CountryMedalsAreaChartComponent', () => {
-  let component: CountryMedalsAreaChartComponent;
-  let fixture: ComponentFixture<CountryMedalsAreaChartComponent>;
+  let component: CountryMedalsBarChartComponent;
+  let fixture: ComponentFixture<CountryMedalsBarChartComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CountryMedalsAreaChartComponent]
+      imports: [CountryMedalsBarChartComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CountryMedalsAreaChartComponent);
+    fixture = TestBed.createComponent(CountryMedalsBarChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,110 @@
+/* Empêche le scroll horizontal global si jamais un élément déborde */
+:host {
+  display: block;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* CONTENEUR PRINCIPAL */
+.home-container {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  h1 {
+    text-align: center;
+    margin: 0;
+    width: 100%;
+    color: #333;                              // << Couleur texte
+    font-weight: 600;                         // << Style texte
+  }
+
+  .kpis {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+
+    .kpi {
+      background: #ffffff;                    // << Fond blanc
+      padding: 1rem 2rem;                     // << INCHANGÉ
+      border-radius: 10px;
+      border: 2px solid #A27B94;              // << Bordure mauve rosé
+      font-weight: bold;
+      color: #333;                            // << Couleur texte
+      max-width: 100%;
+      box-sizing: border-box;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08); // << Ombre légère
+      transition: all 0.3s ease;              // << Transition
+      
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        border-color: #8B4789;                // << Bordure violet au hover
+      }
+    }
+  }
+
+  .chart-wrapper {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    
+    canvas {
+      width: 100% !important;
+      height: auto !important;
+    }
+  }
+
+  /* --- RESPONSIVE --- */
+  &.small {
+    padding: 1rem;
+
+    .kpis {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+
+      .kpi {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    .chart-wrapper {
+      max-width: 95%;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+    }
+  }
+
+  &.medium {
+    padding: 1.5rem;
+
+    .chart-wrapper {
+      max-width: 500px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+    }
+  }
+
+  &.large {
+    padding: 3rem;
+
+    .chart-wrapper {
+      max-width: 700px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+    }
+  }
+}

@@ -29,7 +29,7 @@ Il est conçu pour qu'un nouveau développeur puisse rapidement comprendre la st
 |---------|------|
 | services/data.service.ts | Centralise tous les appels API, fournit les données aux composants et gère les observables. |
 
-## 4. Avantages 
+## 4. Avantages
 
 - Séparation claire des responsabilités (composants vs logique métier)  
 - Préparation à une future connexion back-end/API  

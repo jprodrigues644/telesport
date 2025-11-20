@@ -1,20 +1,35 @@
 <app-header></app-header>
-<div *ngIf="country$ | async as country">
-  <h1>{{ country.country }}</h1>
+<div class="country-container" [ngClass]="size">
+  <div *ngIf="country$ | async as country">
+    <h1 class="country-name">{{ country.country }}</h1>
+    <div class="country-info" *ngIf="country.participations as participations">
+      <div class="info-card">
+        <div class="info-label">Number of entries</div>
+        <div class="info-value">{{ participations.length }}</div>
+      </div>
 
-  <div class="country-info" *ngIf="country.participations as participations">
-    <p>Nombre de participations : {{ participations.length }}</p>
-    <p>Nombre total de médailles : {{ totalMedals$ | async }}</p>
-    <p>Nombre total d'athlètes : {{ totalAthletes$ | async }}</p>
-  </div>
+      <div class="info-card">
+        <div class="info-label">Total number of medals</div>
+        <div class="info-value">{{ totalMedals$ | async }}</div>
+      </div>
 
-  <div class="chart-container">
-    <app-country-medals-bar-chart
-      [data]="country.participations"
-      [countryIndex]="(countryIndex$ | async) ?? 0">
-    </app-country-medals-bar-chart>
-  </div>
-  <div class="back-button">
-    <button (click)="goBackHome()">← Back</button>
+      <div class="info-card">
+        <div class="info-label">Total number of athletes</div>
+        <div class="info-value">{{ totalAthletes$ | async }}</div>
+      </div>
+    </div>
+    <div class="chart-wrapper">
+      <app-country-medals-bar-chart
+        [data]="country.participations"
+        [countryIndex]="(countryIndex$ | async) ?? 0"
+        [isMobile]="size === 'small'"
+        [orientation]="orientation">
+      </app-country-medals-bar-chart>
+    </div>
+    <div class="actions-container">
+      <button class="action-button prev" (click)="goToPrevCountry()">← Prev</button>
+      <button class="action-button back" (click)="goBackHome()">Back</button>
+      <button class="action-button next" (click)="goToNextCountry()">Next →</button>
+    </div>
   </div>
 </div>

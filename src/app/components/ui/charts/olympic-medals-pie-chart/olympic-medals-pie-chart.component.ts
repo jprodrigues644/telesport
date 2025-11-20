@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import Chart from 'chart.js/auto';
 import { Olympic } from 'src/app/models/olympic';
@@ -13,7 +13,7 @@ import { Olympic } from 'src/app/models/olympic';
 export class OlympicMedalsPieChartComponent implements OnInit {
   @Input() data: Olympic[] = [];
   
-  
+  @ViewChild('chartCanvas', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
   private chart: Chart | undefined;
 
   constructor(private router: Router) {}
@@ -29,7 +29,7 @@ export class OlympicMedalsPieChartComponent implements OnInit {
   }
 
   buildPieChart() {
-    const canvas = document.getElementById('olympicMedalsPieChart') as HTMLCanvasElement;
+    const canvas = this.canvasRef.nativeElement;
     const ctx = canvas.getContext('2d');
 
     const labels = this.data.map(i => i.country);
@@ -52,12 +52,17 @@ export class OlympicMedalsPieChartComponent implements OnInit {
           label: 'Total Medals',
           data: medals,
           backgroundColor: [
-            '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'
-          ]
+        '#8B4789',  
+        '#7BA3C7',  // Bleu gris
+        '#A27B94',  
+        '#8BAFB8',  
+        '#B8A8A0'   
+      ]
         }]
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: { position: 'top' },
           title: { display: true, text: 'Olympic Medals Distribution by Country' }

@@ -1,44 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
-.heading {
-    flex-direction: column;
+/* Importation de la police Roboto */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Application globale de la police */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
 }
 
-.center {
-    display: flex;
-    justify-content: center;
-    margin: 5px;
-
-    div {
-        background: #0b868f;
-        padding: 10px;
-        border-radius: 10px;
-        color: white;
-    }
+body {
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.split {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 20px;
-    margin: 5px;
-
-    div {
-        padding: 10px;
-        border: solid #0b868f 1px;
-        border-radius: 10px;
-        color: gray;
-        margin: 0px;
-
-        p {
-            text-align: center;
-            margin: 0;
-        }
-
-        p:last-child {
-            font-weight: bold;
-            color: black;
-        }
-    }
+/* Vous pouvez aussi définir des variables CSS pour vos couleurs */
+:root {
+  --color-violet: #8B4789;
+  --color-blue-grey: #7BA3C7;
+  --color-mauve-rose: #A27B94;
+  --color-blue-light: #8BAFB8;
+  --color-beige-grey: #B8A8A0;
 }
-

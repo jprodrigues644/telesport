@@ -1,13 +1,23 @@
 <app-header></app-header>
-<div class="home-container">
+
+<div class="home-container" [ngClass]="size">
+
   <h1>Medals per Country</h1>
 
   <div class="kpis">
-    <div class="kpi">Number of JOs: {{ totalJOs$ | async }}</div>
-    <div class="kpi">Number of countries: {{ (olympics$ | async)?.length }}</div>
+    <div class="kpi">
+      Number of JOs: {{ totalJOs$ | async }}
+    </div>
+
+    <div class="kpi">
+      Number of countries: {{ (olympics$ | async)?.length }}
+    </div>
   </div>
 
-<app-header></app-header>
-<div *ngIf="olympics$ | async as olympics">
-  <app-olympic-medals-pie-chart [data]="olympics"></app-olympic-medals-pie-chart>
+  <div *ngIf="olympics$ | async as olympics" class="chart-wrapper">
+    <app-olympic-medals-pie-chart
+        [data]="olympics">
+    </app-olympic-medals-pie-chart>
+  </div>
+
 </div>

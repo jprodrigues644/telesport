@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, AfterViewInit } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { Participation } from 'src/app/models/participation';
 
@@ -8,21 +8,39 @@ import { Participation } from 'src/app/models/participation';
   templateUrl: './country-medals-bar-chart.component.html',
   styleUrls: ['./country-medals-bar-chart.component.scss']
 })
-export class CountryMedalsBarChartComponent implements OnInit, OnChanges {
+export class CountryMedalsBarChartComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() data: Participation[] = [];
   @Input() countryIndex: number = 0;
+  @Input() isMobile: boolean = false;
+  @Input() orientation: 'portrait' | 'landscape' = 'portrait';
 
   private chart: Chart | undefined;
-  private countryColors: string[] = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'];
+  private countryColors: string[] = [
+  '#8B4789',  
+  '#7BA3C7',  
+  '#A27B94',  
+  '#8BAFB8',  
+  '#B8A8A0'   
+];
+  private viewInitialized = false;
 
   ngOnInit(): void {
-    this.BuildBarChart();
+    
+  }
+
+  ngAfterViewInit(): void {
+    this.viewInitialized = true;
+   
+    setTimeout(() => {
+      this.buildBarChart();
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // Rebuild chart if data or countryIndex changes
-    if (changes['countryIndex'] && !changes['countryIndex'].firstChange) {
-      this.BuildBarChart();
+    if (this.viewInitialized && (changes['data'] || changes['countryIndex'] || changes['isMobile'] || changes['orientation'])) {
+      setTimeout(() => {
+        this.buildBarChart();
+      });
     }
   }
 
@@ -30,7 +48,6 @@ export class CountryMedalsBarChartComponent implements OnInit, OnChanges {
     return this.countryColors[this.countryIndex % this.countryColors.length];
   }
 
-    // To change
   private getBorderColor(): string {
     const color = this.getBackgroundColor();
     const r = parseInt(color.slice(1, 3), 16);
@@ -39,50 +56,67 @@ export class CountryMedalsBarChartComponent implements OnInit, OnChanges {
     return `rgba(${r}, ${g}, ${b}, 1)`;
   }
 
-  BuildBarChart(): void {
-    const canvasId = `countryMedalsBarChart-${this.countryIndex}`;
-    let canvas = document.getElementById(canvasId) as HTMLCanvasElement;
+  buildBarChart(): void {
+  const canvasId = `countryMedalsBarChart-${this.countryIndex}`;
+  const canvas = document.getElementById(canvasId) as HTMLCanvasElement;
 
-    if (!canvas) {
-      //If its not found, create it
-      const container = document.querySelector('.chart-container');
-      if (!container) return;
-      container.innerHTML = `<canvas id="${canvasId}"></canvas>`;
-      canvas = document.getElementById(canvasId) as HTMLCanvasElement;
-    }
+  if (!canvas) {
+    console.error('Canvas not found with id:', canvasId);
+    return;
+  }
 
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) {
+    console.error('Context not found');
+    return;
+  }
 
-    if (this.chart) this.chart.destroy();
+  if (this.chart) {
+    this.chart.destroy();
+  }
 
-    const years = this.data.map(i => i.year);
-    const medals = this.data.map(i => i.medalsCount);
+  const years = this.data.map(i => i.year);
+  const medals = this.data.map(i => i.medalsCount);
 
-    this.chart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: years,
-        datasets: [{
-          label: 'Medals Count',
-          data: medals,
-          backgroundColor: this.getBackgroundColor(),
-          borderColor: this.getBorderColor(),
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true,
-            title: { display: true, text: 'Number of Medals' }
-          },
-          x: {
-            title: { display: true, text: 'Year' }
+  this.chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: years,
+      datasets: [{
+        label: 'Medals Count',
+        data: medals,
+        backgroundColor: this.getBackgroundColor(),
+        borderColor: this.getBorderColor(),
+        borderWidth: 1,
+        barPercentage: 0.6,      
+        categoryPercentage: 0.8   
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Number of Medals'
+          }
+        },
+        x: {
+          title: {
+            display: true,
+            text: 'Year'
           }
         }
+      },
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top'
+        }
       }
-    });
-  }
+    }
+  });
+}
 }
