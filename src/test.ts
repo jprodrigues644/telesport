@@ -7,20 +7,25 @@ import {
   platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
 
-declare const require: {
-  context(path: string, deep?: boolean, filter?: RegExp): {
-    <T>(id: string): T;
-    keys(): string[];
-  };
-};
-
-// First, initialize the Angular testing environment.
+// Initialize the Angular testing environment
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting(),
 );
 
-// Then we find all the tests.
-const context = require.context('./', true, /\.spec\.ts$/);
-// And load the modules.
-context.keys().forEach(context);
+// Karma exposes all files via window.__karma__.files
+const allFiles = (window as any).__karma__.files;
+
+// Keep only *.spec.ts files
+const specFiles = Object.keys(allFiles).filter(file =>
+  /\.spec\.ts$/.test(file)
+);
+
+// Dynamically import each test file
+async function loadTests() {
+  for (const file of specFiles) {
+    await import(file);
+  }
+}
+
+loadTests();

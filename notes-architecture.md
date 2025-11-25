@@ -1,77 +1,77 @@
-# Analyse et Refactorisation - Projet TéléSport
+# Analysis and Refactoring – TéléSport Project
 
 ---
 
-## **1. Problèmes Identifiés dans le Starter Code**
+## **1. Issues Identified in the Starter Code**
 
-### **1.1. Mauvaises Pratiques Angular**
+### **1.1. Angular Bad Practices**
 
-| Type de Problème          | Description                                                                                     | Exemple (Fichier/Ligne)                     |
-|----------------------------|-------------------------------------------------------------------------------------------------|--------------------------------------------|
-| **Appels HTTP dans les composants** | Les appels API sont effectués directement dans les composants au lieu d'être centralisés dans un service. | `country-details.component.ts` |
-| **Absence de typage strict** | Utilisation de `any` au lieu de types spécifiques.                                              | `home.component.ts`           |
-| **Code dupliqué**          | La logique de calcul des totaux est dupliquée dans plusieurs composants.                     | `country.component.ts`  |
-| **Fichiers trop volumineux** | Certains fichiers contiennent trop de responsabilités (affichage + logique métier).          | `dashboard.component.ts`                  |
-| **Code obsolète**          | Présence de `console.log` inutiles et de code commenté.                                         | `country.component.ts`  |
-| **Mauvaise gestion des observables** | Les observables ne sont pas correctement gérés (pas de `pipe`, pas de `async`).              | `home.component.ts`         |
-| **Mauvaise arborescence des fichiers** | La structure actuelle est peu compréhensible et difficilement maintenable.           | `components/data.service.ts`              |
+| Issue Type                     | Description                                                                                         | Example (File/Line)                                   |
+|-------------------------------|-----------------------------------------------------------------------------------------------------|--------------------------------------------------------|
+| **HTTP calls inside components** | API calls are made directly inside components instead of being centralized in a service.            | `country-details.component.ts`                         |
+| **Lack of strict typing**       | Use of `any` instead of strongly typed interfaces.                                                   | `home.component.ts`                                    |
+| **Duplicated code**             | Logic for calculating totals is duplicated across multiple components.                               | `country.component.ts`                                 |
+| **Oversized files**             | Some files contain too many responsibilities (UI + business logic).                                  | `dashboard.component.ts`                               |
+| **Obsolete code**               | Presence of unnecessary `console.log` statements and commented-out code.                             | `country.component.ts`                                 |
+| **Poor observable management**  | Observables are not properly handled (no `pipe`, no `async` pipe).                                   | `home.component.ts`                                    |
+| **Poor folder structure**       | The current structure is confusing and hard to maintain.                                             | `components/data.service.ts`                           |
 
-### **1.2. Risques de Dette Technique**
+### **1.2. Technical Debt Risks**
 
-- **Maintenabilité** : Difficile de maintenir le code à cause de la duplication et du manque de structure.
-- **Évolutivité** : Ajouter de nouvelles fonctionnalités sera complexe sans une architecture claire.
-- **Tests** : Le code n'est pas facilement testable à cause du mélange des responsabilités.
-
----
-
-## **2. Nouvelle Architecture Proposée**
-
-### **2.1. Arborescence Cible**
-
-![Arborescence Projet TéléSport](src/assets/images/notesDiag.png)
-
-### **2.2. Rôles et Responsabilités**
-
-| Dossier               | Rôle                                                                                     | Exemple de Contenu                          |
-|-----------------------|------------------------------------------------------------------------------------------|---------------------------------------------|
-| `components/ui/charts/` | Composants réutilisables pour les graphiques.                                            | `OlympicMedalsPieChartComponent`            |
-| `components/layout/`  | Composants de mise en page.                                                              | `HeaderComponent`                           |
-| `models/`             | Interfaces TypeScript pour le typage des données.                                        | `Olympic`, `Participation`                 |
-| `pages/`              | Pages principales de l'application.                                                       | `HomeComponent`, `CountryDetailsComponent` |
-| `services/`           | Services pour les appels API et la logique métier.                                       | `DataService`                              |
-
-### **2.3. Design Patterns à Appliquer**
-
-| Pattern               | Application                                                                               | Avantages                                                                 |
-|------------------------|------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| **Singleton**          | `DataService` est fourni au niveau racine (`providedIn: 'root'`).                      | Une seule instance du service dans toute l'application.                |
-| **Séparation des responsabilités** | Composants pour l'affichage, services pour la logique métier.                          | Code plus maintenable et testable.                                       |
-
-### **2.4. Améliorations à Apporter**
-
-- **Centralisation des appels API** : Tous les appels HTTP sont déplacés dans `DataService`.
-- **Typage strict** : Utilisation d'interfaces TypeScript pour éviter `any`.
-- **Composants réutilisables** : Les graphiques et le header sont des composants standalone.
-- **Gestion des observables** : Utilisation correcte de `pipe` et `async` pour les données réactives.
-- **Structure claire** : Dossiers organisés par fonctionnalité.
-
-### **2.5. Facilitation pour l'Intégration d'un Backend**
-
-- **Services comme points de contact** : `DataService` sera le seul point à modifier pour connecter une API réelle.
-- **Interfaces TypeScript** : Les modèles (`Olympic`, `Participation`) facilitent l'intégration des données de l'API.
-- **Observables** : La gestion réactive des données est sera en place pour une intégration fluide.
+- **Maintainability**: Difficult to maintain due to duplicated logic and lack of structure.  
+- **Scalability**: Adding new features becomes harder without a clear architecture.  
+- **Testing**: The code is not easily testable because responsibilities are mixed.
 
 ---
 
-## **3. Étapes de Refactorisation**
+## **2. Proposed New Architecture**
 
-### **3.1. Séparation des Composants**
+### **2.1. Target Folder Structure**
 
-- Création du composant `country-medals-bar-chart` pour afficher les médailles par pays.
-- Création du composant `medals-pie-chart` pour l'affichage total.
-- Cela permet de rendre le composant `country` plus léger et mieux structuré.
+![TéléSport Project Structure](src/assets/images/notesDiag.png)
 
-### **3.2. Suppression du Code Obsolète**
+### **2.2. Roles and Responsibilities**
 
-- Supprimer les `console.log` inutiles.
-- Supprimer le code commenté obsolète.
+| Folder                  | Role                                                                                  | Example Content                                  |
+|-------------------------|----------------------------------------------------------------------------------------|--------------------------------------------------|
+| `components/ui/charts/` | Reusable chart components.                                                             | `OlympicMedalsPieChartComponent`                 |
+| `components/layout/`    | Layout components (header, footer, layout container).                                   | `HeaderComponent`                                |
+| `models/`               | TypeScript interfaces for data typing.                                                 | `Olympic`, `Participation`                       |
+| `pages/`                | Main application pages.                                                                | `HomeComponent`, `CountryDetailsComponent`       |
+| `services/`             | Services for API calls and business logic.                                             | `DataService`                                    |
+
+### **2.3. Design Patterns to Apply**
+
+| Pattern                         | Application                                                                             | Benefits                                                    |
+|---------------------------------|------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| **Singleton**                   | `DataService` provided at the root level (`providedIn: 'root'`).                         | One single instance across the entire app.                 |
+| **Separation of Concerns**     | Components handle display; services handle data and business logic.                      | More maintainable and testable code.                       |
+
+### **2.4. Improvements to Implement**
+
+- **API call centralization**: All HTTP calls must be moved to `DataService`.  
+- **Strict typing**: Use TypeScript interfaces instead of `any`.  
+- **Reusable components**: Charts and header are implemented as standalone components.  
+- **Proper observable handling**: Use `pipe` and the `async` pipe in templates.  
+- **Clear structure**: Features grouped in well-defined folders.
+
+### **2.5. Backend Integration Facilitation**
+
+- **Services as API interfaces**: Only `DataService` needs modification to connect a real backend.  
+- **TypeScript interfaces**: Ensure strong typing for API data (`Olympic`, `Participation`).  
+- **Observables ready**: Reactive data handling makes backend integration smoother.
+
+---
+
+## **3. Refactoring Steps**
+
+### **3.1. Component Separation**
+
+- Create `country-medals-bar-chart` component for displaying country medal counts.  
+- Create `medals-pie-chart` component for total medal visualization.  
+- This makes the `country` component lighter and better structured.
+
+### **3.2. Removing Obsolete Code**
+
+- Remove unnecessary `console.log` statements.  
+- Remove outdated commented code.

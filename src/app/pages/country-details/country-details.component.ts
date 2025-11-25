@@ -48,12 +48,12 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
     .subscribe(params => {
       const rawId = params['id'];
 
-      //
+      //  Fetch all country names to validate and map rawId
       this.dataService.getCountryNames()
         .pipe(takeUntil(this.destroyed$))
         .subscribe(countries => {
         
-          // 
+          // Check if rawId is a number (1-based index)
           if (!isNaN(rawId)) {
             const index = Number(rawId) - 1;
 
@@ -92,7 +92,7 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
   }
 
   private resetData(): void {
-    // Réinitialisez les observables ou les données locales si nécessaire
+    // Reset all observables to avoid displaying stale data during navigation
     this.country$ = new Observable<Olympic | undefined>();
     this.totalParticipations$ = new Observable<number>();
     this.totalMedals$ = new Observable<number>();
@@ -100,8 +100,10 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
     this.countryIndex$ = new Observable<number>();
     this.countries$ = new Observable<string[]>();
   }
+    // Navigate to the next country in the list
 
   goToPrevCountry(): void {
+    // Get current index and countries list
     this.countryIndex$.pipe(takeUntil(this.destroyed$)).subscribe(currentIndex => {
       this.countries$.pipe(takeUntil(this.destroyed$)).subscribe(countries => {
         const prevIndex = currentIndex === 0 ? countries.length - 1 : currentIndex - 1;
@@ -114,7 +116,9 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
+    // Navigate to the next country
   goToNextCountry(): void {
+    // Get current index and countries list
     this.countryIndex$.pipe(takeUntil(this.destroyed$)).subscribe(currentIndex => {
       this.countries$.pipe(takeUntil(this.destroyed$)).subscribe(countries => {
         const nextIndex = currentIndex === countries.length - 1 ? 0 : currentIndex + 1;

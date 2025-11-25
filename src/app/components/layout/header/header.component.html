@@ -3,7 +3,7 @@
     <img [src]="telesportLogoPath" alt="Télésport" class="telesport-logo">
   </div>
 
-  <!-- Affiche le titre uniquement si ce n'est pas un petit écran portrait -->
+  <!-- Show the title only if the screen is not smal-->
   <div class="title-container" *ngIf="!(isSmall && isPortrait)">
     <h1 class="title">{{ title }}</h1>
   </div>
