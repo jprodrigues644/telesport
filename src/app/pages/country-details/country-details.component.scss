@@ -1,5 +1,5 @@
 /* =====================================================================
-   CONTAINER GLOBAL
+   GLOBAL CONTAINER (layout for country details page)
 ===================================================================== */
 .country-container {
   width: 100%;
@@ -12,7 +12,7 @@
   box-sizing: border-box;
 
   /* =====================================================================
-     TITLE
+     PAGE TITLE (country name badge)
   ===================================================================== */
   .country-name {
     text-align: center;
@@ -20,7 +20,7 @@
     font-weight: 700;
     font-size: 1.6rem;
     padding: 0.6rem 1.5rem;
-    background: linear-gradient(135deg, #8B4789, #A27B94); // << Violet/Mauve rosé
+    background: linear-gradient(135deg, #8B4789, #A27B94); // Gradient purple/mauve
     color: white;
     border-radius: 10px;
     width: fit-content;
@@ -28,7 +28,7 @@
   }
 
   /* =====================================================================
-     INFO CARDS
+     INFO CARDS (general stats about the country)
   ===================================================================== */
   .country-info {
     display: flex;
@@ -39,7 +39,7 @@
 
     .info-card {
       background: white;
-      border: 2px solid #A27B94; // << Mauve rosé
+      border: 2px solid #A27B94; 
       border-radius: 8px;
       padding: 0.6rem 1rem;
       min-width: 140px;
@@ -50,7 +50,7 @@
       &:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
-        border-color: #8B4789; // << Violet au hover
+        border-color: #8B4789; 
       }
 
       .info-label {
@@ -68,7 +68,7 @@
   }
 
   /* =====================================================================
-     CHART WRAPPER
+     CHART SECTION (bar chart container)
   ===================================================================== */
   .chart-wrapper {
     width: 100%;
@@ -85,7 +85,7 @@
   }
 
   /* =====================================================================
-     ACTIONS CONTAINER (BOUTONS)
+     ACTIONS (navigation buttons)
   ===================================================================== */
   .actions-container {
     display: flex;
@@ -97,8 +97,8 @@
     .action-button {
       padding: 8px 18px;
       background: white;
-      border: 2px solid #8B4789; // << Violet
-      color: #8B4789; // << Violet
+      border: 2px solid #8B4789; 
+      color: #8B4789;
       font-size: 0.85rem;
       font-weight: 600;
       border-radius: 8px;
@@ -106,29 +106,32 @@
       cursor: pointer;
 
       &:hover {
-        background: #8B4789; // << Violet
+        background: #8B4789;
         color: white;
         transform: translateY(-2px);
       }
 
-      &.prev, &.next {
+      /* Secondary buttons (Previous / Next navigation) */
+      &.prev,
+      &.next {
         background: white;
-        border-color: #7BA3C7; // << Bleu gris
-        color: #7BA3C7; // << Bleu gris
+        border-color: #7BA3C7; 
+        color: #7BA3C7;
 
         &:hover {
-          background: #7BA3C7; // << Bleu gris
+          background: #7BA3C7;
           color: white;
         }
       }
 
+      /* Return to list */
       &.back {
-        background: #A27B94; // << Mauve rosé
-        border-color: #A27B94; // << Mauve rosé
+        background: #A27B94; 
+        border-color: #A27B94;
         color: white;
 
         &:hover {
-          background: #8B4789; // << Violet au hover
+          background: #8B4789; 
           border-color: #8B4789;
         }
       }
@@ -136,7 +139,8 @@
   }
 
   /* =====================================================================
-     SMALL RESPONSIVE SERVICE (SMALL)
+     RESPONSIVE CLASS: SMALL
+     (applied from Angular ResponsiveService)
   ===================================================================== */
   &.small {
     padding: 0.8rem;
@@ -183,7 +187,7 @@
   }
 
   /* =====================================================================
-     MEDIUM RESPONSIVE SERVICE
+     RESPONSIVE CLASS: MEDIUM
   ===================================================================== */
   &.medium {
     padding: 1.2rem;
@@ -208,7 +212,7 @@
   }
 
   /* =====================================================================
-     LARGE RESPONSIVE SERVICE
+     RESPONSIVE CLASS: LARGE
   ===================================================================== */
   &.large {
     padding: 1.5rem;
@@ -234,9 +238,10 @@
 }
 
 /* =====================================================================
-   BREAKPOINTS CSS (FINESSE)
+   BREAKPOINTS (fine-grain tweaks for devices)
 ===================================================================== */
-/* Téléphones ≤ 480px */
+
+/* Phones ≤ 480px */
 @media (max-width: 480px) {
   .country-container {
     .country-name {
@@ -264,7 +269,7 @@
   }
 }
 
-/* Petits appareils 481–768px */
+/* Small devices 481–768px */
 @media (max-width: 768px) {
   .country-container {
     .country-name {
@@ -277,7 +282,7 @@
   }
 }
 
-/* Appareils moyens 769–1024px */
+/* Medium devices 769–1024px */
 @media (max-width: 1024px) {
   .country-container {
     .country-name {

@@ -3,6 +3,10 @@ import { Router } from '@angular/router';
 import Chart from 'chart.js/auto';
 import { Olympic } from 'src/app/models/olympic';
 
+
+/** OlympicMedalsPieChartComponent displays a pie chart of Olympic medals distribution by country.
+ * It allows navigation to country details upon clicking a chart segment.
+ */
 @Component({
   selector: 'app-olympic-medals-pie-chart',
   standalone: true,
@@ -11,24 +15,34 @@ import { Olympic } from 'src/app/models/olympic';
   styleUrls: ['./olympic-medals-pie-chart.component.scss']
 })
 export class OlympicMedalsPieChartComponent implements OnInit {
+  /** Input data for the chart */
   @Input() data: Olympic[] = [];
-  
+  /** Reference to the canvas element for rendering the chart */
   @ViewChild('chartCanvas', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
+  
   private chart: Chart | undefined;
 
+  /** Constructor injects Router for navigation */
   constructor(private router: Router) {}
 
+  /** Initializes the pie chart on component initialization */
   ngOnInit(): void {
     this.buildPieChart();
   }
 
+  /** Rebuilds the pie chart when input data changes */
    ngOnChanges(changes: SimpleChanges): void {
     if ((changes['labels'] || changes['data']) && !(changes['labels']?.firstChange && changes['data']?.firstChange)) {
       this.buildPieChart();
     }
   }
 
+  /** Builds the pie chart using Chart.js
+   * Navigates to country details on segment click.
+   */
+
   buildPieChart() {
+    
     const canvas = this.canvasRef.nativeElement;
     const ctx = canvas.getContext('2d');
 
@@ -43,6 +57,7 @@ export class OlympicMedalsPieChartComponent implements OnInit {
     if (this.chart) {
       this.chart.destroy();
     }
+  /* Create pie chart */
 
     this.chart = new Chart(ctx, {
       type: 'pie',
@@ -53,7 +68,7 @@ export class OlympicMedalsPieChartComponent implements OnInit {
           data: medals,
           backgroundColor: [
         '#8B4789',  
-        '#7BA3C7',  // Bleu gris
+        '#7BA3C7',  
         '#A27B94',  
         '#8BAFB8',  
         '#B8A8A0'   
@@ -67,9 +82,11 @@ export class OlympicMedalsPieChartComponent implements OnInit {
           legend: { position: 'top' },
           title: { display: true, text: 'Olympic Medals Distribution by Country' }
         },
+        /**Handle click events on chart segments  */ 
+
         onClick: (event, elements) => {
           if (elements.length > 0) {
-            const index = elements[0].index; // Get the index of the clicked segment
+            const index = elements[0].index; 
             const countryName = labels[index];
             this.router.navigate(['/country', countryName]);
           }

@@ -5,22 +5,26 @@ import { DataService } from 'src/app/services/data.service';
 import { ResponsiveService } from 'src/app/services/responsive.service';
 import { of } from 'rxjs';
 
+/** Unit tests for HomeComponent */
+
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
 
+  /** Mock DataService */
   const dataServiceMock = {
     getDataOlympics: () => of([]),
     getTotalJOs: () => of(0),
     getMedalsByCountry: () => of({ labels: [], data: [] }),
   };
 
+    /** Mock ResponsiveService */
   const responsiveServiceMock = {
     size$: of('medium'),
     isMobile$: of(false),
     orientation$: of('landscape'),
   };
-
+ /** TestBed configuration and component initialization */
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],

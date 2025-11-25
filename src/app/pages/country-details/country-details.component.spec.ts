@@ -8,10 +8,13 @@ import { DataService } from '../../services/data.service';
 import { ResponsiveService } from 'src/app/services/responsive.service';
 import { Router } from '@angular/router';
 
+/** Unit tests for CountryDetailsComponent */
 describe('DetailComponent', () => {
   let component: CountryDetailsComponent;
   let fixture: ComponentFixture<CountryDetailsComponent>;
 
+  /** TestBed configuration and component initialization */
+  
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CountryDetailsComponent],

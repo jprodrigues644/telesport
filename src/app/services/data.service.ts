@@ -3,34 +3,52 @@ import { Injectable } from '@angular/core';
 import { combineLatest, map, Observable } from 'rxjs';
 import { Olympic } from '../models/olympic';
 
+/**
+ * DataService handles fetching and processing Olympic data from a JSON source.
+ * It provides methods to retrieve various statistics and information about countries' participation in the Olympics.
+ */
+
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
 
-
   private olympicUrl = './assets/mock/olympic.json';
 
+  /** Constructor injects HttpClient for data fetching. */
   constructor(private http: HttpClient) {
 
    }
-
+   /** Fetches the complete list of Olympic data from the JSON source.
+    * @return Observable emitting an array of Olympic data objects.
+    */
     getDataOlympics(): Observable<Olympic[]> {
     return this.http.get<Olympic[]>(this.olympicUrl);
 
   }
-
+/** Fetches Olympic data for a specific country.
+ * @param countryName The name of the country to fetch data for.
+ * @return Observable emitting the Olympic data object for the specified country, or undefined if not found.
+ */
   getDataOlympicByCountry(countryName: string): Observable<Olympic | undefined> {
     return this.getDataOlympics().pipe(
       map((olympics: Olympic[]) => olympics.find(olympic => olympic.country === countryName))
     );
   }
 
+  /** Fetches the list of country names from the Olympic data.
+   * @return Observable emitting an array of country names.
+   */
   getCountryNames(): Observable<string[]> {
     return this.getDataOlympics().pipe(
       map(olympics => olympics.map(olympic => olympic.country))
     ); }
+
+    /** Fetches the index of a specific country in the Olympic data.
+     * @param countryName The name of the country to find the index for.
+     * @return Observable emitting the index of the country, or 0 if not found.
+     */
 
    getCountryIndex(countryName: string | undefined): Observable<number> {
   return this.getDataOlympics().pipe(
@@ -44,7 +62,9 @@ export class DataService {
 
 }
 
-   // Récupère le nombre total de JO (années uniques)
+   /** Récupère le total des Jeux Olympiques (JO)
+    * @return Observable émettant le nombre total de JO distincts
+    */
   getTotalJOs(): Observable<number> {
     return this.getDataOlympics().pipe(
       map(olympics => {
@@ -54,7 +74,9 @@ export class DataService {
     );
   }
 
-  // Récupère le total des médailles par pays (pour le graphique camembert)
+ /** Récupère le nombre de médailles par pays
+  * @return Observable émettant un objet avec les labels des pays et leurs données de médailles
+  */
   getMedalsByCountry(): Observable<{ labels: string[], data: number[] }> {
     return this.getDataOlympics().pipe(
       map(olympics => {
@@ -67,13 +89,21 @@ export class DataService {
     );
   }
 
+  /** Retrieves the total number of participations for a given country.
+   * @param country$ Observable emitting the Olympic data for a specific country.
+   * @return Observable emitting the total number of participations.
+   */
    getTotalParticipations(country$: Observable<Olympic | undefined>): Observable<number> {
     return country$.pipe(
       map(country => country?.participations.length || 0)
     );
   }
 
-  // Nouvelle méthode pour obtenir le total des médailles
+  /** Retrieves the total number of medals for a given country.
+   * @param country$ Observable emitting the Olympic data for a specific country.
+   * @return Observable emitting the total number of medals.
+   */
+  
   getTotalMedals(country$: Observable<Olympic | undefined>): Observable<number> {
     return country$.pipe(
       map(country => {
@@ -83,7 +113,11 @@ export class DataService {
     );
   }
 
-  // Nouvelle méthode pour obtenir le total des athlètes
+  /** Retrieves the total number of athletes for a given country.
+     
+   * @param country$ Observable emitting the Olympic data for a specific country.
+   * @return Observable emitting the total number of athletes.
+   */
   getTotalAthletes(country$: Observable<Olympic | undefined>): Observable<number> {
     return country$.pipe(
       map(country => {

@@ -2,10 +2,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CountryMedalsBarChartComponent } from './country-medals-bar-chart.component';
 
+/** Unit tests for CountryMedalsBarChartComponent */
 describe('CountryMedalsAreaChartComponent', () => {
   let component: CountryMedalsBarChartComponent;
   let fixture: ComponentFixture<CountryMedalsBarChartComponent>;
 
+
+  /** TestBed configuration and component initialization */
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [CountryMedalsBarChartComponent]

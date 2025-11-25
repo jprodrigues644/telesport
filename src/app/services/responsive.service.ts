@@ -2,23 +2,35 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { map, Subject, takeUntil } from 'rxjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
+/**
+ * ResponsiveService monitors screen size and orientation changes,
+ * providing observable streams to adapt the UI accordingly.
+ */
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResponsiveService implements OnDestroy {
-
+ /* Subject to manage unsubscription and prevent memory leaks */
   private destroyed$ = new Subject<void>();
+
+  /* Observable streams for size and orientation */
+
   private sizeSubject = new Subject<'small' | 'medium' | 'large'>();
   size$ = this.sizeSubject.asObservable();
+/* Observable stream for orientation */
   private orientationSubject = new Subject<'portrait' | 'landscape'>();
   orientation$ = this.orientationSubject.asObservable();
+
+  /* Observable stream to indicate if the device is mobile */
   isMobile$ = this.size$.pipe(
     map(size => size === 'small')
   );
-  //private
+ 
+  /* Constructor sets up breakpoint observation and orientation detection
+    */
   constructor(private breakpoint : BreakpointObserver)  {
-    //Observer for screen size
+    
     this.breakpoint.observe([
       Breakpoints.XSmall,
       Breakpoints.Small,
@@ -36,7 +48,7 @@ export class ResponsiveService implements OnDestroy {
         this.sizeSubject.next('large');
       }
     });
-    //Orientation 
+   /* Function to detect current orientation */
       const detectOrientation = () =>
         window.innerHeight > window.innerWidth ? 'portrait' : 'landscape';
 
@@ -48,6 +60,7 @@ export class ResponsiveService implements OnDestroy {
   }
    
 
+  /** Cleans up subscriptions to prevent memory leaks. */
   ngOnDestroy(): void {
     this.destroyed$.next();
     this.destroyed$.complete();

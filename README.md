@@ -132,7 +132,7 @@ Below are some previews of the application on both desktop and mobile devices.
 - **Mobile – iPhone 12 Pro**
   ![Home Mobile](src/assets/images/screenshots/pageHomeMobileIphone12Pro.png)
 
-### Country Details Page
+### Country Details
 
 - **Desktop**
   ![Country Details Desktop](src/assets/images/screenshots/pageCountryDetailsDesktop.png)
