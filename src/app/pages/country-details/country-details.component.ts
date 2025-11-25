@@ -29,10 +29,6 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
     private dataService: DataService
   ) {}
 
-  ngOnDestroy(): void {
-    this.destroyed$.next();
-    this.destroyed$.complete();
-  }
 
   ngOnInit(): void {
     this.responsive.size$
@@ -134,4 +130,10 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
   goBackHome(): void {
     this.router.navigate(['/']);
   }
+
+    ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+  }
+
 }

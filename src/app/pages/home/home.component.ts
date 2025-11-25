@@ -1,7 +1,5 @@
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Component, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
-import Chart from 'chart.js/auto';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { Olympic } from 'src/app/models/olympic';
 import { DataService } from 'src/app/services/data.service';
@@ -13,7 +11,7 @@ import { ResponsiveService } from 'src/app/services/responsive.service';
   styleUrls: ['./home.component.scss'],
 
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit , OnDestroy {
   olympics$!: Observable<Olympic[]>;
    totalJOs$!: Observable<number>;
   medalsByCountry$!: Observable<{ labels: string[], data: number[] }>;
@@ -28,6 +26,7 @@ export class HomeComponent implements OnInit {
     private responsiveService: ResponsiveService
 
   ) {}
+  
 
   ngOnInit() {
 
@@ -49,6 +48,9 @@ export class HomeComponent implements OnInit {
   this.totalJOs$ = this.dataService.getTotalJOs();
   this.medalsByCountry$ = this.dataService.getMedalsByCountry();
 }
-
+ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }
 

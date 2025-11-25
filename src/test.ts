@@ -1,5 +1,6 @@
 // This file is required by karma.conf.js and loads recursively all the .spec and framework files
 
+// @ts-ignore: missing type declarations for side-effect import of 'zone.js/testing'
 import 'zone.js/testing';
 import { getTestBed } from '@angular/core/testing';
 import {
